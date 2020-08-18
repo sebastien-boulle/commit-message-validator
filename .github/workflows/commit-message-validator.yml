@@ -1,0 +1,20 @@
+name: 'Commit message validator'
+
+on:
+  pull_request
+
+jobs:
+  commit-message-validator:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2.3.2
+
+    - name: Commit message validation
+      uses: sebastien-boulle/commit-message-validator@master
+      with:
+        COMMIT_VALIDATOR_NO_JIRA: true
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
