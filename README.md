@@ -148,7 +148,7 @@ Thus we won't enforce one or the other, we will only enfore:
 
 <!-- GETTING STARTED -->
 
-## Getting Started
+## Getting Started with command line
 
 To get a local copy up and running follow these simple steps.
 
@@ -196,6 +196,36 @@ Behind the hood, the script use `git log` to list all the commit thus any syntax
 
 You can also use the pre-push commit validator, simply copy, `pre-push`, `validator.sh` and `check.sh` files
 in `.git/hooks` directory of your repository.
+
+### OPTIONS
+
+- if `COMMIT_VALIDATOR_NO_JIRA` environment variable is set, no validation is done on JIRA refs.
+- if `COMMIT_VALIDATOR_ALLOW_TEMP` environment variable is set, no validation is done on `fixup!` and `squash!` commits.
+
+## Getting Started with github action
+
+To enable the action simply create the .github/workflows/commit-message-validator.yml file with the following content:
+
+```yml
+name: 'Commit message validator'
+
+on:
+  pull-request
+
+jobs:
+  commit-message-validator:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v1
+
+    - name: Commit message validation
+      uses: sebastien-boulle/commit-message-validator@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+```
 
 ### OPTIONS
 
