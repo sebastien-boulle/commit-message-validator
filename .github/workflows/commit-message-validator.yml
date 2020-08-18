@@ -1,0 +1,17 @@
+name: 'Commit message validation on pull request'
+
+on:
+  pull_request
+
+jobs:
+  commit-message-validation:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Commit message validation
+      uses: sebastien-boulle/commit-message-validator@master
+      with:
+        COMMIT_VALIDATOR_NO_JIRA: true
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
